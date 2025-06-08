@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Heart Envelope</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @keyframes pulseGlow {
+        0%,
+        100% {
+          box-shadow: 0 0 15px 5px rgba(255, 105, 135, 0.4);
+        }
+        50% {
+          box-shadow: 0 0 30px 15px rgba(255, 105, 135, 0.7);
+        }
+      }
+
+      @keyframes floatUpDown {
+        0%,
+        100% {
+          transform: rotate(-45deg) translateY(0);
+        }
+        50% {
+          transform: rotate(-45deg) translateY(-10px);
+        }
+      }
+
+      body {
+        background: radial-gradient(circle at center, #fbcfe8, #f9a8d4);
+      }
+
+      .heart-envelope-container {
+        cursor: pointer;
+        display: inline-block;
+        perspective: 800px;
+        position: relative;
+      }
+
+      .heart-envelope {
+        position: relative;
+        width: 40vw;
+        height: 36vw;
+        max-width: 300px;
+        max-height: 270px;
+        animation: floatUpDown 4s ease-in-out infinite;
+        cursor: pointer;
+        transform-origin: center center;
+      }
+
+      .heart-base,
+      .heart-flap {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .heart-base {
+        background: red;
+        z-index: 1;
+        transition: opacity 0.6s ease;
+      }
+
+      .heart-flap {
+        z-index: 2;
+        transform-origin: top center;
+        transition: transform 0.6s ease, opacity 0.6s ease;
+      }
+
+      .heart-flap .circle-left,
+      .heart-flap .circle-right,
+      .heart-base .circle-left,
+      .heart-base .circle-right {
+        width: 100%;
+        height: 100%;
+        background: red;
+        border-radius: 50%;
+        position: absolute;
+      }
+
+      .circle-left {
+        top: -55%;
+        left: 0;
+      }
+
+      .circle-right {
+        top: 0;
+        left: 50%;
+      }
+
+      .open .heart-flap {
+        transform: rotateX(-120deg);
+        opacity: 0;
+      }
+
+      .open .heart-base {
+        opacity: 0;
+      }
+
+      .letter {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 0) scale(0);
+        border-radius: 10px;
+        z-index: 0;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: transform 0.4s 0.6s ease, opacity 0.4s 0.6s ease;
+        width: 250px; /* fixed width */
+        height: auto; /* height adjusts with content */
+        padding: 20px 25px;
+        text-align: center;
+        font-weight: 600;
+        background: white;
+        box-sizing: border-box;
+        white-space: normal;
+        overflow-wrap: break-word;
+        box-shadow: none;
+      }
+
+      .open .letter {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        z-index: 3;
+        box-shadow: 0 0 15px 5px rgba(255, 105, 135, 0.6);
+      }
+    </style>
+  </head>
+  <body class="flex items-center justify-center h-screen bg-pink-100">
+    <div class="relative heart-envelope-container" onclick="openEnvelope()">
+      <div class="heart-envelope">
+        <div class="heart-flap">
+          <div class="circle-left"></div>
+          <div class="circle-right"></div>
+        </div>
+        <div class="heart-base">
+          <div class="circle-left"></div>
+          <div class="circle-right"></div>
+        </div>
+      </div>
+      <div class="letter">
+        <h2>My Love</h2>
+        <p>
+          Every moment with you makes my heart skip a beat. You are my
+          everything.
+        </p>
+      </div>
+    </div>
+
+    <script>
+      function openEnvelope() {
+        document
+          .querySelector(".heart-envelope-container")
+          .classList.toggle("open");
+      }
+    </script>
+  </body>
+</html>
